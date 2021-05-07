@@ -159,9 +159,8 @@ void HdlcAnalyzer::BitSyncProcessFlags()
 
             mHdlc->AdvanceToNextEdge();
             flagEncountered = false;
-            mAbortFrame = true;
-
-            break;
+            //mAbortFrame = true;
+            //break;
         }
 
         if( FlagComing() )
@@ -203,7 +202,7 @@ void HdlcAnalyzer::BitSyncProcessFlags()
         }
     }
 
-    if( !mAbortFrame )
+    //if( !mAbortFrame )
     {
         for( U32 i = 0; i < flags.size(); ++i )
         {
