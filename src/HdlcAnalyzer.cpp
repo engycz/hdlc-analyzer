@@ -579,6 +579,7 @@ void HdlcAnalyzer::InfoAndFcsField( const vector<HdlcByte>& informationAndFcs )
             break;
         }
         case HDLC_CRC16:
+        case HDLC_CRC16RDD:
         {
             if( information.size() >= 2 )
             {
@@ -668,6 +669,15 @@ void HdlcAnalyzer::ProcessFcsField( const vector<HdlcByte>& fcs )
             mCurrentFrameBytes.erase( mCurrentFrameBytes.end() - 4, mCurrentFrameBytes.end() );
         }
         calculatedFcs = HdlcSimulationDataGenerator::Crc32RDD( mCurrentFrameBytes );
+        break;
+    }
+    case HDLC_CRC16RDD:
+    {
+        if( mCurrentFrameBytes.size() >= 2 )
+        {
+            mCurrentFrameBytes.erase( mCurrentFrameBytes.end() - 2, mCurrentFrameBytes.end() );
+        }
+        calculatedFcs = HdlcSimulationDataGenerator::Crc16RDD( mCurrentFrameBytes );
         break;
     }
     }

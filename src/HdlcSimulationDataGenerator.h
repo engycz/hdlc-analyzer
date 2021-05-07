@@ -21,6 +21,7 @@ class HdlcSimulationDataGenerator
     static vector<U8> Crc16( const vector<U8>& stream );
     static vector<U8> Crc32( const vector<U8>& stream );
     static vector<U8> Crc32RDD( const vector<U8>& stream );
+    static vector<U8> Crc16RDD( const vector<U8>& stream );
     static vector<U8> CrcDivision( const vector<U8>& stream, const vector<U8>& genPoly, U32 crcNumber );
     static vector<BitState> BytesVectorToBitsVector( const vector<U8>& v, U32 numberOfBits );
 

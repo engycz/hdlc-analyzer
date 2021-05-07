@@ -200,6 +200,7 @@ void HdlcAnalyzerResults::GenFcsFieldString( const Frame& frame, DisplayBase dis
         crcTypeStr = "8 ";
         break;
     case HDLC_CRC16:
+    case HDLC_CRC16RDD:
         fcsBits = 16;
         crcTypeStr = "16";
         break;
@@ -310,6 +311,7 @@ void HdlcAnalyzerResults::GenerateExportFile( const char* file, DisplayBase disp
         fcsBits = 8;
         break;
     case HDLC_CRC16:
+    case HDLC_CRC16RDD:
         fcsBits = 16;
         break;
     case HDLC_CRC32:

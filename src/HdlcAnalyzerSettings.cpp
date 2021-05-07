@@ -46,7 +46,8 @@ HdlcAnalyzerSettings::HdlcAnalyzerSettings()
     mHdlcFcsInterface->AddNumber( HDLC_CRC8, "CRC-8", "8-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->AddNumber( HDLC_CRC16, "CRC-16-CCITT", "16-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->AddNumber( HDLC_CRC32, "CRC-32", "32-bit Cyclic Redundancy Check" );
-    mHdlcFcsInterface->AddNumber( HDLC_CRC32RDD, "CRC-32-RDD", "32-bit Cyclic Redundancy Check" );
+    mHdlcFcsInterface->AddNumber( HDLC_CRC32RDD, "CRC-32-RDD (Z100)", "32-bit Cyclic Redundancy Check" );
+    mHdlcFcsInterface->AddNumber( HDLC_CRC16RDD, "CRC-16-RDD (P196)", "32-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->SetNumber( mHdlcFcs );
 
     AddInterface( mInputChannelInterface.get() );

@@ -591,3 +591,31 @@ vector<U8> HdlcSimulationDataGenerator::Crc32RDD( const vector<U8>& stream )
                             ReverseTheBits( ( U8 )( crc32Ret[ 2 ] ^ 0xFF ) ), ReverseTheBits( ( U8 )( crc32Ret[ 3 ] ^ 0xFF ) ) };
     return crc32RetMod;
 }
+
+vector<U8> HdlcSimulationDataGenerator::Crc16RDD( const vector<U8>& stream )
+{
+    vector<U8> result;
+
+    // Simulate start 0xFFFFFFFF
+    result.push_back( 0x84 );
+    result.push_back( 0xCF );
+
+    for( U8 value : stream )
+        result.push_back( ReverseTheBits( value ) );
+
+    // Append 16 0-bits
+    result.push_back( 0x00 );
+    result.push_back( 0x00 );
+
+    // ISO/IEC 13239:2002(E) page 14
+    // CRC16 Divisor (17 bits) - x**16 + x**12 + x**5 + 1 (0x1021)
+    vector<U8> divisor;
+    divisor.push_back( 0x88 );
+    divisor.push_back( 0x10 );
+    divisor.push_back( 0x80 );
+
+    vector<U8> crc16Ret = CrcDivision( result, divisor, 16 );
+    vector<U8> crc16RetMod{ ReverseTheBits( ( U8 )( crc16Ret[ 0 ] ^ 0xFF ) ), ReverseTheBits( ( U8 )( crc16Ret[ 1 ] ^ 0xFF ) ) };
+
+    return crc16RetMod;
+}
