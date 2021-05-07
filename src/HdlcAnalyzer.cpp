@@ -97,7 +97,7 @@ void HdlcAnalyzer::ProcessHDLCFrame()
     HdlcByte addressByte = ProcessFlags();
 
     ProcessAddressField( addressByte );
-    ProcessControlField();
+    //ProcessControlField();
     ProcessInfoAndFcsField();
 
     if( mAbortFrame ) // The frame has been aborted at some point
@@ -589,6 +589,7 @@ void HdlcAnalyzer::InfoAndFcsField( const vector<HdlcByte>& informationAndFcs )
             break;
         }
         case HDLC_CRC32:
+        case HDLC_CRC32RDD:
         {
             if( information.size() >= 4 )
             {
@@ -659,6 +660,15 @@ void HdlcAnalyzer::ProcessFcsField( const vector<HdlcByte>& fcs )
             mCurrentFrameBytes.erase( mCurrentFrameBytes.end() - 4, mCurrentFrameBytes.end() );
         }
         calculatedFcs = HdlcSimulationDataGenerator::Crc32( mCurrentFrameBytes );
+        break;
+    }
+    case HDLC_CRC32RDD:
+    {
+        if( mCurrentFrameBytes.size() >= 4 )
+        {
+            mCurrentFrameBytes.erase( mCurrentFrameBytes.end() - 4, mCurrentFrameBytes.end() );
+        }
+        calculatedFcs = HdlcSimulationDataGenerator::Crc32RDD( mCurrentFrameBytes );
         break;
     }
     }
@@ -853,12 +863,12 @@ U32 HdlcAnalyzer::GetMinimumSampleRateHz()
 
 const char* HdlcAnalyzer::GetAnalyzerName() const
 {
-    return "HDLC";
+    return "RDD";
 }
 
 const char* GetAnalyzerName()
 {
-    return "HDLC";
+    return "RDD";
 }
 
 Analyzer* CreateAnalyzer()

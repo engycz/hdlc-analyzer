@@ -7,10 +7,10 @@ HdlcAnalyzerSettings::HdlcAnalyzerSettings()
       mTransmissionMode( HDLC_TRANSMISSION_BIT_SYNC ),
       mHdlcAddr( HDLC_BASIC_ADDRESS_FIELD ),
       mHdlcControl( HDLC_BASIC_CONTROL_FIELD ),
-      mHdlcFcs( HDLC_CRC16 )
+      mHdlcFcs( HDLC_CRC32RDD )
 {
     mInputChannelInterface.reset( new AnalyzerSettingInterfaceChannel() );
-    mInputChannelInterface->SetTitleAndTooltip( "HDLC", "Standard HDLC" );
+    mInputChannelInterface->SetTitleAndTooltip( "RDD", "ZAT RDD" );
     mInputChannelInterface->SetChannel( mInputChannel );
 
     mBitRateInterface.reset( new AnalyzerSettingInterfaceInteger() );
@@ -46,13 +46,14 @@ HdlcAnalyzerSettings::HdlcAnalyzerSettings()
     mHdlcFcsInterface->AddNumber( HDLC_CRC8, "CRC-8", "8-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->AddNumber( HDLC_CRC16, "CRC-16-CCITT", "16-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->AddNumber( HDLC_CRC32, "CRC-32", "32-bit Cyclic Redundancy Check" );
+    mHdlcFcsInterface->AddNumber( HDLC_CRC32RDD, "CRC-32-RDD", "32-bit Cyclic Redundancy Check" );
     mHdlcFcsInterface->SetNumber( mHdlcFcs );
 
     AddInterface( mInputChannelInterface.get() );
     AddInterface( mBitRateInterface.get() );
-    AddInterface( mHdlcTransmissionInterface.get() );
-    AddInterface( mHdlcAddrInterface.get() );
-    AddInterface( mHdlcControlInterface.get() );
+//    AddInterface( mHdlcTransmissionInterface.get() );
+//    AddInterface( mHdlcAddrInterface.get() );
+//    AddInterface( mHdlcControlInterface.get() );
     AddInterface( mHdlcFcsInterface.get() );
 
     AddExportOption( 0, "Export as text/csv file" );
@@ -60,7 +61,7 @@ HdlcAnalyzerSettings::HdlcAnalyzerSettings()
     AddExportExtension( 0, "csv", "csv" );
 
     ClearChannels();
-    AddChannel( mInputChannel, "HDLC", false );
+    AddChannel( mInputChannel, "RDD", false );
 }
 
 HdlcAnalyzerSettings::~HdlcAnalyzerSettings()
@@ -82,7 +83,7 @@ bool HdlcAnalyzerSettings::SetSettingsFromInterfaces()
     mHdlcFcs = HdlcFcsType( U32( mHdlcFcsInterface->GetNumber() ) );
 
     ClearChannels();
-    AddChannel( mInputChannel, "HDLC", true );
+    AddChannel( mInputChannel, "RDD", true );
 
     return true;
 }
@@ -110,7 +111,7 @@ void HdlcAnalyzerSettings::LoadSettings( const char* settings )
     text_archive >> *( U32* )&mHdlcFcs;
 
     ClearChannels();
-    AddChannel( mInputChannel, "HDLC", true );
+    AddChannel( mInputChannel, "RDD", true );
 
     UpdateInterfacesFromSettings();
 }

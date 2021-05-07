@@ -55,7 +55,8 @@ enum HdlcFcsType
 {
     HDLC_CRC8 = 0,
     HDLC_CRC16 = 1,
-    HDLC_CRC32 = 2
+    HDLC_CRC32 = 2,
+    HDLC_CRC32RDD = 3
 };
 // Flag Field Type (Start, End or Fill)
 enum HdlcFlagType

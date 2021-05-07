@@ -204,6 +204,7 @@ void HdlcAnalyzerResults::GenFcsFieldString( const Frame& frame, DisplayBase dis
         crcTypeStr = "16";
         break;
     case HDLC_CRC32:
+    case HDLC_CRC32RDD:
         fcsBits = 32;
         crcTypeStr = "32";
         break;
@@ -245,6 +246,10 @@ void HdlcAnalyzerResults::GenFcsFieldString( const Frame& frame, DisplayBase dis
     if( frame.mFlags & DISPLAY_AS_ERROR_FLAG )
     {
         fieldNameStr << " - CALC CRC[" << calcFcsStr << "] != READ CRC[" << readFcsStr << "]";
+    }
+    else
+    {
+        fieldNameStr << " [" << calcFcsStr << "]";
     }
 
     if( !tabular )
@@ -308,6 +313,7 @@ void HdlcAnalyzerResults::GenerateExportFile( const char* file, DisplayBase disp
         fcsBits = 16;
         break;
     case HDLC_CRC32:
+    case HDLC_CRC32RDD:
         fcsBits = 32;
         break;
     }

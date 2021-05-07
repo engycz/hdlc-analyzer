@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.11)
-project(hdlc_analyzer)
+project(RddAnalyzer)
 
 
 
@@ -22,4 +22,4 @@ src/HdlcSimulationDataGenerator.cpp
 src/HdlcSimulationDataGenerator.h
 )
 
-add_analyzer_plugin(hdlc_analyzer SOURCES ${SOURCES})
+add_analyzer_plugin(RddAnalyzer SOURCES ${SOURCES})
