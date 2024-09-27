@@ -811,12 +811,12 @@ vector<U8> HdlcAnalyzer::HdlcBytesToVectorBytes( const vector<HdlcByte>& asyncBy
 }
 
 U64 HdlcAnalyzer::VectorToValue( const vector<U8>& v ) const
-{
+{  
     U64 value = 0;
     U32 j = 8 * ( v.size() - 1 );
     for( U32 i = 0; i < v.size(); ++i )
     {
-        value |= ( v.at( i ) << j );
+        value |= ( ((U64)v.at( i )) << j );
         j -= 8;
     }
     return value;
